@@ -1,0 +1,252 @@
+:root {
+    --top-begin: 0px;
+    --top-end: 0px;
+    --height-begin: 40px;
+    --height-end: 40px;
+  }
+
+html{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+body{
+    margin: 0;
+    overflow: hidden;
+    background-image:radial-gradient(ellipse at left, #c7c7c7, #696969);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #00ffcc;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    z-index: 9999;
+    mix-blend-mode: difference; /* effet lumineux */
+    backdrop-filter: blur(3px);
+  }
+
+.mainContent{
+    display: flex;
+    flex-direction: row;
+}
+
+.leftBar {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-top: 40vh; /* poussé de la moitié de hauteur de viewport */
+    transform: translateY(-50%);
+}
+
+.rightContent{
+    display: flex;
+    flex-direction: column;
+border-radius: 20px;
+    height: 75vh;
+    width: 90vw;
+    margin: 20px;
+    background-color: rgba(202, 202, 202, 0.596);
+}
+
+.quill-container {
+    position: fixed;
+    bottom: 20px; /* Légère marge du bas */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px; /* Largeur fixe ou responsive */
+    max-width: 90%; /* Pour qu'il reste beau sur mobile */
+    height: 150px;
+    background-color: rgba(202, 202, 202, 0.596);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#editor {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.menu{
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.2);
+    width:210px;
+    padding:20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    /* margin:70px; */
+    height: 70vh;
+    border: solid 1px rgb(221, 221, 221);
+    border-left: none;
+}
+ul{
+    list-style: none;
+    padding:0;
+    margin:0;
+    position: relative;
+}
+ul li{
+    padding:10px;
+    margin-bottom: 30px;
+    position: relative;
+    color:#ffffff;
+    cursor: pointer;
+    transition: 0.5s;
+    transition-delay: 1s;
+}
+
+ul li i{
+    width:30px;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-right:30px;
+}
+ul li::before{
+    position: absolute;
+    top:0;
+    left:5px;
+    width:40px;
+    height:100%;
+    content: '';
+    background-color: #dfdfdf;
+    border-radius: 30px;
+    transition: 1s;
+}
+li i:nth-child(2){
+    position: absolute;
+    right:0;
+    top:15px;
+    transition: 0.5s;
+    opacity: 0.5;
+}
+
+
+
+ul li li{
+    margin-bottom: unset;
+    margin-top: 10px;
+    padding-left:50px;
+    opacity: 0;
+    animation: shochild 1s ease 1 forwards;
+    position: relative;
+    z-index: 1;
+}
+@keyframes shochild{
+    from{
+        opacity: 0;
+        transform: translate(0,-20px);
+    }to{
+        opacity: 1;
+    }
+}
+
+li li:nth-last-child(1){
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+ul li li::before{
+    position: absolute;
+    left:13px;
+    top:50%;
+    width:5px;
+    height:5px;
+    content:'';
+    background-color: #DD789A;
+    z-index: 1;
+    transition: 1s;
+}
+
+
+
+
+ul li li:nth-child(1),
+ul li li:nth-child(1)::before{
+    transition-delay: 1.2s;
+}
+ul li li:nth-child(2),
+ul li li:nth-child(2)::before{
+    transition-delay: 1.4s;
+}
+ul li li:nth-child(3),
+ul li li:nth-child(3)::before{
+    transition-delay: 1.6s;
+}
+ul li li:nth-child(2){
+    animation-delay: 0.2s;
+ }
+ ul li li:nth-child(3){
+    animation-delay: 0.4s;
+ }
+
+
+ ul ul{
+    position: relative;
+    display: none;
+    transition: 1s;
+}
+
+ .showMenuChild{    
+    transform: rotate(180deg);
+}
+
+.showMenuChild ~ ul{
+    display: block;
+}
+#action{
+    background-color: red;
+    position: absolute;
+    width:40px;
+    height:var(--height-end);
+    border-radius: 30px;
+    background-image: linear-gradient(to bottom, #b8b8b8, #8a8a8a);
+    top:var(--top-end);
+    left:5px;
+    transition: 1s;
+}
+.active li::before{
+    background-color: #eee;
+}
+.runanimation{
+    animation: animationaction 1s ease-in 1;
+}
+.active, .active li{
+    color:#fff;
+}
+
+@keyframes animationaction{
+    0%{
+        height: var(--height-begin);
+        top: var(--top-begin);
+    }
+    30%{
+        height: var(--height-begin);
+        width:10px;
+        height:10px;
+        transform: translate(15px);
+       
+    }
+    50%{
+        filter: none;
+        height:10px;
+    }
+    70%{
+        width:10px;
+        transform: translate(15px);
+        filter: blur(3px);
+    }100%{
+    }
+}
